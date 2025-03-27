@@ -85,10 +85,29 @@
     <div id="results"></div>
 
     <footer>
-        &copy; 2025 Built for Team Credit of ACLEDA Svay Rieng Branch.
-    <footer>
+        © 2025 Built for Team Credit of ACLEDA Svay Rieng Branch.
+    </footer>
 
     <script>
+        // Function to set the max date for date inputs to today
+        function setMaxDateToToday() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-based, so add 1
+            const day = String(today.getDate()).padStart(2, '0');
+            const maxDate = `${year}-${month}-${day}`; // Format: YYYY-MM-DD
+
+            // Set the max attribute for both date inputs
+            document.getElementById("dob").setAttribute("max", maxDate);
+            document.getElementById("currentDate").setAttribute("max", maxDate);
+
+            // Optionally, set the current date as the default value for "Current Date"
+            document.getElementById("currentDate").value = maxDate;
+        }
+
+        // Call the function to set the max date when the page loads
+        setMaxDateToToday();
+
         function calculateMonthsLeft() {
             const dobInput = document.getElementById("dob").value;
             const retirementAge = parseInt(document.getElementById("retirementAge").value);
