@@ -9,35 +9,64 @@
         body {
             font-family: sans-serif;
             background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            padding: 8px 14px;
+            font-size: 14px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            z-index: 1000;
+        }
+
+        .back-button:hover {
+            background-color: #0056b3;
         }
 
         h2 {
             text-align: center;
-            margin-top: 40px;
+            margin-top: 70px;
+            color: #333;
         }
 
         table {
             border-collapse: collapse;
-            width: 500px;
+            width: 90%;
+            max-width: 600px;
             margin: 20px auto;
             background-color: #fff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
+            border: 1px solid #eee;
+            padding: 12px;
             text-align: left;
         }
 
         th {
-            background-color: #f2f2f2;
+            background-color: #f5f5f5;
+            font-weight: bold;
         }
 
         input[type="number"],
         input[type="date"] {
             width: 100%;
-            padding: 5px;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
             box-sizing: border-box;
         }
 
@@ -47,15 +76,24 @@
             margin-top: 20px;
         }
 
+        #monthsLeft {
+            font-weight: bold;
+            color: #007bff;
+        }
+
         footer {
             text-align: center;
-            margin-top: 40px;
+            margin: 40px auto 20px;
             font-size: 14px;
             color: #777;
         }
     </style>
 </head>
 <body>
+
+    <button class="back-button" onclick="window.location.href='https://measvuthy168.github.io/CreditAssist/'">
+        ⬅ Back to Main
+    </button>
 
     <h2>Retirement Calculator</h2>
 
@@ -89,24 +127,17 @@
     </footer>
 
     <script>
-        // Function to set the max date for date inputs to today
         function setMaxDateToToday() {
             const today = new Date();
             const year = today.getFullYear();
-            const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-based, so add 1
+            const month = String(today.getMonth() + 1).padStart(2, '0');
             const day = String(today.getDate()).padStart(2, '0');
-            const maxDate = `${year}-${month}-${day}`; // Format: YYYY-MM-DD
+            const maxDate = `${year}-${month}-${day}`;
 
-            // Set the max attribute for both date inputs
             document.getElementById("dob").setAttribute("max", maxDate);
             document.getElementById("currentDate").setAttribute("max", maxDate);
-
-            // Optionally, set the current date as the default value for "Current Date"
             document.getElementById("currentDate").value = maxDate;
         }
-
-        // Call the function to set the max date when the page loads
-        setMaxDateToToday();
 
         function calculateMonthsLeft() {
             const dobInput = document.getElementById("dob").value;
@@ -116,7 +147,6 @@
 
             const dob = new Date(dobInput);
             const currentDate = new Date(currentDateInput);
-
             const retirementDate = new Date(dob);
             retirementDate.setFullYear(dob.getFullYear() + retirementAge);
 
@@ -131,11 +161,14 @@
             monthsLeftCell.textContent = totalMonthsLeft >= 0 ? totalMonthsLeft + " Months" : "Already Retired";
         }
 
-        calculateMonthsLeft();
+        document.addEventListener("DOMContentLoaded", () => {
+            setMaxDateToToday();
+            calculateMonthsLeft();
 
-        document.getElementById("dob").addEventListener("change", calculateMonthsLeft);
-        document.getElementById("retirementAge").addEventListener("change", calculateMonthsLeft);
-        document.getElementById("currentDate").addEventListener("change", calculateMonthsLeft);
+            document.getElementById("dob").addEventListener("change", calculateMonthsLeft);
+            document.getElementById("retirementAge").addEventListener("change", calculateMonthsLeft);
+            document.getElementById("currentDate").addEventListener("change", calculateMonthsLeft);
+        });
     </script>
 </body>
 </html>
