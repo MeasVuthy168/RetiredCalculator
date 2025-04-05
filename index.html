@@ -1,13 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="km">
 <head>
   <meta charset="UTF-8" />
-  <title>Retirement Calculator</title>
+  <title>ការគណនាចំនួនខែចូលនិវត្តន៍</title>
   <meta name="description" content="Simple web-based retirement calculator to estimate months left until retirement.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Embed Krasar font -->
   <style>
+    @font-face {
+      font-family: 'Krasar';
+      src: url('https://measvuthy168.github.io/CreditAssist/Krasar-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Krasar';
+      src: url('https://measvuthy168.github.io/CreditAssist/Krasar-Bold.ttf') format('truetype');
+      font-weight: bold;
+      font-style: normal;
+    }
+
     body {
-      font-family: sans-serif;
+      font-family: 'Krasar', Arial, sans-serif;
       background-color: #1c2331;
       color: white;
       margin: 0;
@@ -24,7 +39,7 @@
       padding: 12px;
       border: none;
       font-size: 16px;
-      font-family: 'Khmer OS System', Arial, sans-serif;
+      font-family: 'Krasar', Arial, sans-serif;
       cursor: pointer;
       z-index: 1000;
       text-align: center;
@@ -55,6 +70,7 @@
       border-radius: 8px;
       overflow: hidden;
       color: white;
+      font-family: 'Krasar', Arial, sans-serif;
     }
 
     th, td {
@@ -78,6 +94,7 @@
       box-sizing: border-box;
       background-color: #1f2733;
       color: white;
+      font-family: 'Krasar', Arial, sans-serif;
     }
 
     #results {
@@ -105,14 +122,13 @@
     }
   </style>
 
+  <!-- Session & Auto Logout -->
   <script>
-    // Redirect to login page if not logged in
     const user = sessionStorage.getItem("loggedInUser");
     if (!user) {
       window.location.href = "https://measvuthy168.github.io/CreditAssist/login.html";
     }
 
-    // Auto logout after 1 minute of inactivity
     const AUTO_LOGOUT_MINUTES = 1;
     let logoutTimer;
 
@@ -139,27 +155,23 @@
 
   <div class="spacer"></div>
 
-  <h2>Retirement Calculator</h2>
+  <h2>ការគណនាចំនួនខែចូលនិវត្តន៍</h2>
 
   <table>
     <tr>
-      <th>Description</th>
-      <th>Value</th>
-    </tr>
-    <tr>
-      <td>Date of Birth</td>
+      <th>ថ្ងៃខែឆ្នាំកំណើត</th>
       <td><input type="date" id="dob" value="1989-09-14"></td>
     </tr>
     <tr>
-      <td>Retirement Age</td>
-      <td><input type="number" id="retirementAge" min="0" max="100" value="55"> Years</td>
+      <th>អាយុចូលនិវត្តន៍</th>
+      <td><input type="number" id="retirementAge" min="0" max="100" value="55"> ឆ្នាំ</td>
     </tr>
     <tr>
-      <td>Current Date</td>
-      <td><input type="date" id="currentDate" value="2025-01-01"></td>
+      <th>ថ្ងៃខែឆ្នាំបច្ចុប្បន្ន</th>
+      <td><input type="date" id="currentDate"></td>
     </tr>
     <tr>
-      <td>Months Left</td>
+      <th>ចំនួនខែដែលនៅសល់</th>
       <td id="monthsLeft"></td>
     </tr>
   </table>
@@ -167,7 +179,7 @@
   <div id="results"></div>
 
   <footer>
-    © 2025 Built for Credit Team of ACLEDA Svay Rieng Branch.
+    © 2025 បង្កើតដោយក្រុមការងារឥណទានសាខាស្វាយរៀង
   </footer>
 
   <script>
@@ -202,7 +214,7 @@
         totalMonthsLeft -= 1;
       }
 
-      monthsLeftCell.textContent = totalMonthsLeft >= 0 ? totalMonthsLeft + " Months" : "Already Retired";
+      monthsLeftCell.textContent = totalMonthsLeft >= 0 ? totalMonthsLeft + " ខែ" : "បានចូលនិវត្តន៍រួចហើយ";
     }
 
     document.addEventListener("DOMContentLoaded", () => {
