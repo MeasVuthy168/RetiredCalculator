@@ -108,6 +108,14 @@
       color: #3399ff;
     }
 
+    #description {
+      text-align: center;
+      font-size: 18px;
+      margin-top: 10px;
+      color: #f0f0f0;
+      font-family: 'Krasar', Arial, sans-serif;
+    }
+
     footer {
       text-align: center;
       margin: 40px auto 20px;
@@ -176,7 +184,7 @@
     </tr>
   </table>
 
-  <div id="results"></div>
+  <div id="description"></div>
 
   <footer>
     © 2025 បង្កើតដោយក្រុមការងារឥណទានសាខាស្វាយរៀង
@@ -200,21 +208,27 @@
       const retirementAge = parseInt(document.getElementById("retirementAge").value);
       const currentDateInput = document.getElementById("currentDate").value;
       const monthsLeftCell = document.getElementById("monthsLeft");
+      const description = document.getElementById("description");
 
       const dob = new Date(dobInput);
       const currentDate = new Date(currentDateInput);
       const retirementDate = new Date(dob);
       retirementDate.setFullYear(dob.getFullYear() + retirementAge);
 
-      let yearsDiff = retirementDate.getFullYear() - currentDate.getFullYear();
-      let monthsDiff = retirementDate.getMonth() - currentDate.getMonth();
-      let totalMonthsLeft = yearsDiff * 12 + monthsDiff;
+      let totalMonths = (retirementDate.getFullYear() - currentDate.getFullYear()) * 12 + (retirementDate.getMonth() - currentDate.getMonth());
 
-      if (currentDate.getDate() > retirementDate.getDate()) {
-        totalMonthsLeft -= 1;
+      if (currentDate.getDate() > retirementDate.getDate()) totalMonths--;
+
+      monthsLeftCell.textContent = totalMonths >= 0 ? totalMonths + " ខែ" : "បានចូលនិវត្តន៍រួចហើយ";
+
+      if (totalMonths < 0) {
+        description.textContent = "បានចូលនិវត្តន៍រួចហើយ";
+      } else {
+        const years = Math.floor(totalMonths / 12);
+        const months = totalMonths % 12;
+        const days = Math.max(0, retirementDate.getDate() - currentDate.getDate());
+        description.textContent = `នៅសល់ ${years.toString().padStart(2, '0')} ឆ្នាំ ${months.toString().padStart(2, '0')} ខែ និង ${days.toString().padStart(2, '0')} ថ្ងៃទៀត`;
       }
-
-      monthsLeftCell.textContent = totalMonthsLeft >= 0 ? totalMonthsLeft + " ខែ" : "បានចូលនិវត្តន៍រួចហើយ";
     }
 
     document.addEventListener("DOMContentLoaded", () => {
